@@ -84,7 +84,7 @@ struct EventDetailView: View {
     }
     
     private func handleBooking() {
-        guard let ride = selectedRide else { return }
+        guard selectedRide != nil else { return }
         
         // Simulated API call for booking
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
