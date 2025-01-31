@@ -8,50 +8,82 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isDarkMode: Bool = true // Tracks current theme
-
     var body: some View {
-        NavigationStack { // Use NavigationStack for the entire app navigation
-            ZStack(alignment: .topLeading) {
-                // Background color dynamically changes based on theme
-                (isDarkMode ? Color.black : Color.white)
-                    .ignoresSafeArea()
-
-                VStack {
-                    // App logo dynamically changes based on theme
-                    Image(isDarkMode ? "Bandit_Logo_Inverted" : "Bandit Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(10.0)
-                        .padding()
-
-                    Spacer() // Push the NavigationLink button down
-
-                    NavigationLink(destination: EventPinPageView()) {
-                        Text("Enter Event Pin")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            .foregroundColor(isDarkMode ? .black : .white)
-                            .padding()
-                            .background(isDarkMode ? Color.white : Color.black)
-                            .cornerRadius(10)
-                            .padding(.bottom, 30)
-                    }
-                }
-
-                // Theme Toggle Button in Top-Left Corner
-                Button(action: {
-                    isDarkMode.toggle()
-                }) {
-                    Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
-                        .font(.system(size: 24))
-                        .foregroundColor(isDarkMode ? .white : .black)
-                        .padding()
-                        .background(Circle().fill(isDarkMode ? Color.black.opacity(0.7) : Color.white.opacity(0.7)))
-                }
-                .padding()
-            }
+        NavigationView {
+            HomeView()
         }
+    }
+}
+
+struct HomeView: View {
+    var body: some View {
+        VStack(spacing: 20) {
+            // Hero Section
+            VStack(spacing: 16) {
+                Text("Welcome to Bandit")
+                    .font(.largeTitle)
+                    .bold()
+                
+                Text("Your Event Transportation Solution")
+                    .font(.title2)
+                    .foregroundColor(.secondary)
+                
+                NavigationLink(destination: EventListView()) {
+                    Text("Find Your Event")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal)
+            }
+            .padding()
+            .background(Color.blue.opacity(0.1))
+            .cornerRadius(15)
+            
+            // Features Section
+            VStack(alignment: .leading, spacing: 20) {
+                Text("Why Choose Bandit?")
+                    .font(.title2)
+                    .bold()
+                
+                LazyVGrid(columns: [
+                    GridItem(.flexible()),
+                    GridItem(.flexible()),
+                    GridItem(.flexible())
+                ], spacing: 20) {
+                    FeatureCard(title: "Event-Specific Rides", description: "Dedicated transportation for your special events")
+                    FeatureCard(title: "Reliable Service", description: "Professional drivers and timely pickups")
+                    FeatureCard(title: "Group Booking", description: "Easy coordination for group transportation")
+                }
+            }
+            .padding()
+        }
+        .navigationBarHidden(true)
+    }
+}
+
+struct FeatureCard: View {
+    let title: String
+    let description: String
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Text(title)
+                .font(.headline)
+                .multilineTextAlignment(.center)
+            
+            Text(description)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 2)
     }
 }
 
