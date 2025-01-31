@@ -1,0 +1,63 @@
+.event-detail-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.event-info-section {
+  margin-bottom: 3rem;
+}
+
+.event-date, .event-location {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.rides-section {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.rides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.ride-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  border: 2px solid transparent;
+}
+
+.ride-card:hover {
+  transform: translateY(-3px);
+}
+
+.ride-card.selected {
+  border-color: #3498db;
+}
+
+.booking-button {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto 0;
+  padding: 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.booking-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+} 
