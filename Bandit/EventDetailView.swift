@@ -11,6 +11,8 @@ struct EventDetailView: View {
     let event: Event
     @State private var selectedRide: Ride?
     @State private var rides: [Ride] = []
+    @State private var showingBookingConfirmation = false
+    @State private var showingBookingError = false
     
     var body: some View {
         ScrollView {
@@ -60,6 +62,18 @@ struct EventDetailView: View {
         .onAppear {
             loadRides()
         }
+        .alert("Booking Confirmed", isPresented: $showingBookingConfirmation) {
+            Button("OK") { }
+        } message: {
+            if let ride = selectedRide {
+                Text("Your \(ride.type) ride has been booked for \(event.name).\nTotal: $\(ride.price, specifier: "%.2f")")
+            }
+        }
+        .alert("Booking Error", isPresented: $showingBookingError) {
+            Button("OK") { }
+        } message: {
+            Text("There was an error booking your ride. Please try again.")
+        }
     }
     
     private func loadRides() {
@@ -71,7 +85,18 @@ struct EventDetailView: View {
     
     private func handleBooking() {
         guard let ride = selectedRide else { return }
-        // Implement booking logic
+        
+        // Simulated API call for booking
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // Simulate 90% success rate
+            let success = Double.random(in: 0...1) < 0.9
+            
+            if success {
+                showingBookingConfirmation = true
+            } else {
+                showingBookingError = true
+            }
+        }
     }
 }
 
